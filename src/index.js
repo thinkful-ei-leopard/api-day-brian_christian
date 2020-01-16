@@ -13,11 +13,13 @@ const main = function () {
     .then((items) => {
     items.forEach((item) => store.addItem(item));
     shoppingList.render();
-
+    })
+    .catch(err =>  {
+      store.error = err;
+      shoppingList.render();
     });
-  
   shoppingList.bindEventListeners();
   shoppingList.render();
-};
+  }
 
 $(main);

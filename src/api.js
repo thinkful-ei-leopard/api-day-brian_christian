@@ -1,4 +1,4 @@
-const BASE_URL = 'https://thinkful-list-api.herokuapp.com/brian';
+const BASE_URL = 'https://thinkful-list-api.herokuapdp.com/brian';
 
 const getItems = function(){
   return fetch(`${BASE_URL}/items`);

@@ -39,10 +39,13 @@ const render = function () {
   }
 
   // render the shopping list in the DOM
-  const shoppingListItemsString = generateShoppingItemsString(items);
-
+  let shoppingListItemsString = generateShoppingItemsString(items);
+  if (store.error) {
+    shoppingListItemsString = 'Something went horribly wrong.';
+  }
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
+
 };
 
 const handleNewItemSubmit = function () {
@@ -54,9 +57,18 @@ const handleNewItemSubmit = function () {
     api.createItem(newItemName)
       .then(res => res.json())
      .then((newItem) => {
+       console.log(newItem.message);
+       if (newItem.message === undefined)
+       {
         store.addItem(newItem);
         render();
-    });
+       } else {
+         console.log('something went wrong');
+       }
+    })
+    .catch(err =>  {
+      console.log('error');
+    })
   });
 };
 
