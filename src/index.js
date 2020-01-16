@@ -2,6 +2,7 @@ import $ from 'jquery';
 import api from './api';
 import 'normalize.css';
 import './index.css';
+import store from './store';
 
 import shoppingList from './shopping-list';
 
@@ -11,10 +12,13 @@ const main = function () {
     .then((newItem) => {
       return api.getItems();
     })
-    .then(res => res.json())
-    .then((items) => {
-      console.log(items);
-    });
+    api.getItems()
+  .then(res => res.json())
+  .then((items) => {
+    items.forEach((item) => store.addItem(item));
+    shoppingList.render();
+  });
+  
   shoppingList.bindEventListeners();
   shoppingList.render();
 };
